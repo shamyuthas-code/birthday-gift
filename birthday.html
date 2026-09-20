@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday 🎂</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Poppins", Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, #32105f, #12001f 60%, #05000b);
+    color: white;
+    overflow-x: hidden;
+}
+
+/* ---------------- INTRO SCREEN ---------------- */
+
+.intro {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle, #4b176d, #100018 70%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: 1s ease;
+}
+
+.intro h1 {
+    font-size: clamp(35px, 8vw, 70px);
+    text-align: center;
+    color: #fff;
+    text-shadow:
+        0 0 10px #ff4da6,
+        0 0 30px #ff4da6,
+        0 0 60px #ff4da6;
+
+    animation: glow 2s infinite alternate;
+}
+
+.intro p {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #ffd9ef;
+}
+
+/* ---------------- GIFT ---------------- */
+
+.gift {
+    margin-top: 50px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    animation: giftFloat 2s infinite ease-in-out;
+}
+
+.box {
+    position: absolute;
+    bottom: 0;
+    width: 150px;
+    height: 100px;
+    background: linear-gradient(135deg, #ff2f92, #b90062);
+    border-radius: 8px;
+    box-shadow: 0 15px 40px rgba(255, 0, 150, 0.5);
+}
+
+.box::before {
+    content: "";
+    position: absolute;
+    left: 60px;
+    width: 30px;
+    height: 100%;
+    background: #ffd700;
+}
+
+.box::after {
+    content: "";
+    position: absolute;
+    top: 35px;
+    width: 100%;
+    height: 25px;
+    background: #ffd700;
+}
+
+.lid {
+    position: absolute;
+    top: 25px;
+    left: -10px;
+    width: 170px;
+    height: 35px;
+    background: linear-gradient(135deg, #ff4fa3, #d50070);
+    border-radius: 8px;
+    z-index: 5;
+    transition: 1s;
+}
+
+.ribbon {
+    position: absolute;
+    width: 30px;
+    height: 40px;
+    background: #ffd700;
+    left: 60px;
+    top: 0;
+    z-index: 10;
+    border-radius: 5px;
+}
+
+.bow {
+    position: absolute;
+    top: -20px;
+    left: 50px;
+    width: 50px;
+    height: 35px;
+    z-index: 20;
+}
+
+.bow::before,
+.bow::after {
+    content: "";
+    position: absolute;
+    width: 45px;
+    height: 30px;
+    background: #ffd700;
+    border-radius: 50%;
+}
+
+.bow::before {
+    left: -20px;
+    transform: rotate(-25deg);
+}
+
+.bow::after {
+    right: -20px;
+    transform: rotate(25deg);
+}
+
+/* Gift opening */
+
+.gift.open .lid {
+    transform: translateY(-100px) rotate(-15deg);
+}
+
+.gift.open {
+    animation: none;
+}
+
+/* ---------------- MAIN ---------------- */
+
+.main {
+    display: none;
+    min-height: 100vh;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.main.show {
+    display: block;
+    animation: appear 1.5s ease;
+}
+
+.title {
+    font-size: clamp(40px, 8vw, 80px);
+    color: #fff;
+    text-shadow:
+        0 0 10px #ff4da6,
+        0 0 25px #ff4da6,
+        0 0 50px #ff4da6;
+    animation: glow 2s infinite alternate;
+}
+
+.name {
+    margin-top: 10px;
+    font-size: clamp(30px, 6vw, 55px);
+    color: #ffd700;
+    text-shadow: 0 0 20px #ffb300;
+}
+
+.message {
+    max-width: 700px;
+    margin: 25px auto;
+    font-size: 20px;
+    line-height: 1.8;
+    color: #ffe9f6;
+}
+
+/* ---------------- CAKE ---------------- */
+
+.cake {
+    width: 220px;
+    height: 160px;
+    margin: 60px auto 40px;
+    position: relative;
+}
+
+.cake-base {
+    position: absolute;
+    bottom: 0;
+    width: 220px;
+    height: 90px;
+    background: linear-gradient(#ff78b7, #d62979);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(255, 0, 140, .5);
+}
+
+.cream {
+    position: absolute;
+    top: 45px;
+    width: 220px;
+    height: 30px;
+    background: white;
+    border-radius: 50%;
+}
+
+.candle {
+    position: absolute;
+    left: 100px;
+    top: 0;
+    width: 20px;
+    height: 60px;
+    background: repeating-linear-gradient(
+        45deg,
+        white,
+        white 8px,
+        #ff4da6 8px,
+        #ff4da6 16px
+    );
+    border-radius: 5px;
+}
+
+.flame {
+    position: absolute;
+    top: -30px;
+    left: 2px;
+    width: 16px;
+    height: 28px;
+    background: orange;
+    border-radius: 50% 50% 50% 50%;
+    box-shadow: 0 0 20px orange;
+    animation: flame 0.4s infinite alternate;
+}
+
+/* ---------------- PHOTOS ---------------- */
+
+.gallery {
+    max-width: 900px;
+    margin: 60px auto;
+}
+
+.gallery h2 {
+    font-size: 35px;
+    margin-bottom: 30px;
+    color: #ffd700;
+}
+
+.photos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.photo {
+    width: 220px;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 4px solid rgba(255,255,255,.7);
+    box-shadow: 0 10px 30px rgba(255, 0, 150, .4);
+    transition: .4s;
+}
+
+.photo:hover {
+    transform: scale(1.08) rotate(2deg);
+}
+
+/* ---------------- BUTTON ---------------- */
+
+.music-btn {
+    margin-top: 20px;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ff4da6, #8e2de2);
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(255,0,150,.5);
+}
+
+.music-btn:hover {
+    transform: scale(1.05);
+}
+
+/* ---------------- BALLOONS ---------------- */
+
+.balloon {
+    position: fixed;
+    width: 45px;
+    height: 60px;
+    border-radius: 50%;
+    bottom: -100px;
+    z-index: 1;
+    animation: balloon 10s linear infinite;
+}
+
+.balloon::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background: white;
+    top: 55px;
+    left: 22px;
+}
+
+.balloon:nth-child(1) {
+    left: 5%;
+    background: #ff4d6d;
+}
+
+.balloon:nth-child(2) {
+    left: 25%;
+    background: #4cc9f0;
+    animation-delay: 2s;
+}
+
+.balloon:nth-child(3) {
+    right: 25%;
+    background: #ffd166;
+    animation-delay: 4s;
+}
+
+.balloon:nth-child(4) {
+    right: 5%;
+    background: #9b5de5;
+    animation-delay: 1s;
+}
+
+/* ---------------- FIREWORKS ---------------- */
+
+.firework {
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: white;
+    animation: explode 1.5s infinite;
+    z-index: 2;
+}
+
+.f1 {
+    left: 20%;
+    top: 25%;
+}
+
+.f2 {
+    right: 20%;
+    top: 30%;
+    animation-delay: .5s;
+}
+
+.f3 {
+    left: 50%;
+    top: 20%;
+    animation-delay: 1s;
+}
+
+/* ---------------- CONFETTI ---------------- */
+
+.confetti {
+    position: fixed;
+    top: -20px;
+    width: 10px;
+    height: 20px;
+    animation: confettiFall 5s linear infinite;
+    z-index: 3;
+}
+
+.c1 { left: 10%; background: #ff4d6d; }
+.c2 { left: 20%; background: #ffd700; animation-delay: 1s; }
+.c3 { left: 35%; background: #4cc9f0; animation-delay: 2s; }
+.c4 { left: 50%; background: #9b5de5; animation-delay: .5s; }
+.c5 { left: 65%; background: #ff4da6; animation-delay: 1.5s; }
+.c6 { left: 80%; background: #00ff99; animation-delay: 2.5s; }
+.c7 { left: 90%; background: orange; animation-delay: .8s; }
+
+/* ---------------- ANIMATIONS ---------------- */
+
+@keyframes glow {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes giftFloat {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: scale(.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes flame {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.3);
+    }
+}
+
+@keyframes balloon {
+    from {
+        transform: translateY(0) rotate(0);
+    }
+
+    to {
+        transform: translateY(-120vh) rotate(20deg);
+    }
+}
+
+@keyframes confettiFall {
+    from {
+        transform: translateY(0) rotate(0);
+    }
+
+    to {
+        transform: translateY(110vh) rotate(720deg);
+    }
+}
+
+@keyframes explode {
+
+    0% {
+        box-shadow:
+            0 0 0 0 white;
+    }
+
+    100% {
+        box-shadow:
+            80px 0 0 #ff4d6d,
+            -80px 0 0 #ffd700,
+            0 80px 0 #4cc9f0,
+            0 -80px 0 #9b5de5,
+            55px 55px 0 #ff4da6,
+            -55px -55px 0 #00ff99,
+            55px -55px 0 orange,
+            -55px 55px 0 #fff;
+        opacity: 0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+
+<div class="intro" id="intro">
+
+    <h1>🎁 A Special Surprise 🎁</h1>
+
+    <p>Something special is waiting for you...</p>
+
+    <div class="gift" id="gift">
+
+        <div class="bow"></div>
+
+        <div class="lid"></div>
+
+        <div class="ribbon"></div>
+
+        <div class="box"></div>
+
+    </div>
+
+    <p style="margin-top:30px;">
+        👆 Click the gift!
+    </p>
+
+</div>
+
+
+<!-- BALLOONS -->
+
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+
+
+<!-- CONFETTI -->
+
+<div class="confetti c1"></div>
+<div class="confetti c2"></div>
+<div class="confetti c3"></div>
+<div class="confetti c4"></div>
+<div class="confetti c5"></div>
+<div class="confetti c6"></div>
+<div class="confetti c7"></div>
+
+
+<!-- FIREWORKS -->
+
+<div class="firework f1"></div>
+<div class="firework f2"></div>
+<div class="firework f3"></div>
+
+
+<!-- MAIN PAGE -->
+
+<section class="main" id="main">
+
+    <h1 class="title">
+        🎉 HAPPY BIRTHDAY 🎉
+    </h1>
+
+    <!-- CHANGE FRIEND'S NAME -->
+
+    <h2 class="name">
+        My Dear girl 💖
+    </h2>
+
+
+    <!-- CAKE -->
+
+    <div class="cake">
+
+        <div class="candle">
+            <div class="flame"></div>
+        </div>
+
+        <div class="cream"></div>
+
+        <div class="cake-base"></div>
+
+    </div>
+
+
+    <!-- MESSAGE -->
+
+    <div class="message">
+
+        <p>
+            Today is all about celebrating YOU! 🥳
+        </p>
+
+        <p>
+            May your life always be filled with
+            happiness, laughter, success and
+            beautiful memories. 💕
+        </p>
+
+        <p>
+            Happiest birthday Ammu 😘🫂💙...enaku una Aaavvvllloooo pudikum☺️...enanu therila  enaku una mari friend kedachathu illa...enaku bayama la illa but una loss paniruveno nu konjom iruku🥲...enaku therium nee ena vitu poga mata...promise ah solldren enikum na una vitutu poga maten💯...na pesulanalum unkita pesa neraiya perum irukanga but enaku nu nee matum dha iruka...enaku una vitu yarum illa🥺...schl frnds la pesaranga ana una mari yarum illa..ithu varaikum yarum una mari ena pathukatathu illa...nee avlo caring ah🤧 loving ah💙 aprm supporting ah😖 vum iruka...kuda veh illanalum enaku nu nee iruka nu oru oru time um prove pandra...🤧enaku onea onu dha irukara konja neram ah um en kuda spend panu athum matum pothum please...🤌🏻🥺...nee olunga en solldra pecha kelu nee ethum feel panatha ellam seekaram seri agidum un nallathu dha solldren na solldratha kelu😇...unaku nanu santhiya monisha murugar🦚 irukom ok va☺️🫂...monisha sollula nah enaku therichu irukuma nu therila solli irupa nu nenaikaren but iruthalum ethu epa nalum seri enkita sollama irukatha...and once again happiest birthday chinthuu be happy forever stay blessed and stay forever with me...🫂💞🥹.
+        </p>
+
+        <p>
+            🎂 Wishing you the happiest birthday ever! 🎂
+        </p>
+
+    </div>
+
+
+    <!-- MUSIC -->
+
+    <button class="music-btn" onclick="toggleMusic()">
+        🎵 Play Birthday Music
+    </button>
+
+    <audio id="music" loop>
+        <source src="Kannamma En Kannamma_[cut_29sec].mp3" type="audio/mpeg">
+    </audio>
+
+
+    <!-- PHOTOS -->
+
+    <div class="gallery">
+
+        <h2>
+            📸 Our Beautiful Memories 💕
+        </h2>
+
+        <div class="photos">
+
+            <img src="mem.jpeg"
+                 class="photo"
+                 alt="Memory 1">
+
+            <img src="memo.jpeg"
+                 class="photo"
+                 alt="Memory 2">
+
+            <img src="memory.jpeg"
+                 class="photo"
+                 alt="Memory 3">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+const gift = document.getElementById("gift");
+const intro = document.getElementById("intro");
+const main = document.getElementById("main");
+const music = document.getElementById("music");
+
+gift.addEventListener("click", function() {
+
+    // Open gift
+    gift.classList.add("open");
+
+    // Start music
+    music.play().catch(() => {});
+
+    // Wait for gift animation
+    setTimeout(() => {
+
+        intro.style.opacity = "0";
+
+        setTimeout(() => {
+
+            intro.style.display = "none";
+
+            main.classList.add("show");
+
+            createFireworks();
+
+        }, 1000);
+
+    }, 1000);
+
+});
+
+
+function toggleMusic() {
+
+    if (music.paused) {
+
+        music.play();
+
+    } else {
+
+        music.pause();
+
+    }
+
+}
+
+
+/* Extra fireworks */
+
+function createFireworks() {
+
+    for (let i = 0; i < 15; i++) {
+
+        const firework = document.createElement("div");
+
+        firework.className = "firework";
+
+        firework.style.left =
+            Math.random() * 90 + "%";
+
+        firework.style.top =
+            Math.random() * 70 + "%";
+
+        firework.style.animationDelay =
+            Math.random() * 2 + "s";
+
+        document.body.appendChild(firework);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
